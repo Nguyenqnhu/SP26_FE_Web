@@ -1,0 +1,194 @@
+/* Footer — cùng tông TravelGo */
+.app-footer {
+  position: relative;
+  margin-top: auto;
+  background: var(--tg-green);
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  font-family: var(--sans);
+}
+
+.app-footer__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255, 255, 255, 0.25), transparent 55%);
+  pointer-events: none;
+}
+
+.app-footer__inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 24px 40px;
+  display: grid;
+  gap: 48px;
+}
+
+@media (min-width: 900px) {
+  .app-footer__inner {
+    grid-template-columns: 1.1fr 1.4fr;
+    align-items: start;
+  }
+}
+
+.app-footer__logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 900px) {
+  .app-footer__logo-row {
+    justify-content: flex-start;
+  }
+}
+
+.app-footer__logo-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.app-footer__logo-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  font-family: var(--heading);
+}
+
+.app-footer__tagline {
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 360px;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .app-footer__tagline {
+    text-align: left;
+  }
+}
+
+.app-footer__social {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .app-footer__social {
+    justify-content: flex-start;
+  }
+}
+
+.app-footer__social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.15s, background 0.2s;
+}
+
+.app-footer__social-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.app-footer__cols {
+  display: grid;
+  gap: 28px;
+}
+
+@media (min-width: 600px) {
+  .app-footer__cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.app-footer__heading {
+  margin: 0 0 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.app-footer__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-footer__list li {
+  margin-bottom: 10px;
+}
+
+.app-footer__list a {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.app-footer__list a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.app-footer__contact {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-footer__contact li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.app-footer__contact a {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-footer__contact a:hover {
+  text-decoration: underline;
+}
+
+.app-footer__bottom {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 22px 24px 32px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.app-footer__bottom p {
+  margin: 0 0 6px;
+}
+
+.app-footer__sub {
+  font-size: 0.78rem !important;
+  opacity: 0.95;
+}
