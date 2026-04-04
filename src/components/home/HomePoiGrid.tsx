@@ -1,3 +1,5 @@
+import { Star } from 'lucide-react'
+
 type Poi = {
   id: string
   name: string
@@ -13,8 +15,6 @@ type HomePoiGridProps = {
 }
 
 export function HomePoiGrid({ pois, loading }: HomePoiGridProps) {
-  const fallback = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=600&q=80'
-
   return (
     <section id="featured" className="hl-poi">
       <div className="hl-poi__head">
@@ -33,7 +33,13 @@ export function HomePoiGrid({ pois, loading }: HomePoiGridProps) {
             return (
               <article key={p.id} className="hl-poi__card">
                 <div className="hl-poi__img-wrap">
-                  <img className="hl-poi__img" src={p.imageUrl || fallback} alt={p.name} />
+                  {p.imageUrl ? (
+                    <img className="hl-poi__img" src={p.imageUrl} alt={p.name} loading="lazy" />
+                  ) : (
+                    <div className="hl-poi__img hl-poi__img--placeholder" aria-hidden>
+                      <Star size={22} />
+                    </div>
+                  )}
                 </div>
                 <div className="hl-poi__body">
                   <span className="hl-poi__tag">{tag}</span>

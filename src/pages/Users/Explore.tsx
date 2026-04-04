@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { AppFooter, AppNavbar } from '../../components/layout'
 import { axiosClient } from '../../config/axios'
+import { pickPoiImageUrl, unwrapApiArray } from '../../lib/poiImageUrl'
 import './explore-trips.css'
 
 type Poi = {
@@ -40,11 +41,7 @@ const Explore = () => {
     const load = async () => {
       try {
         const { data } = await axiosClient.get<unknown>('pois/recommended', { params: { limit: 10 } })
-        const arr = Array.isArray(data)
-          ? data
-          : (data as { items?: unknown[]; data?: unknown[] })?.items ??
-            (data as { data?: unknown[] })?.data ??
-            []
+        const arr = unwrapApiArray(data)
 
         const list = arr.map((p, i) => {
           const x = p as Record<string, unknown>
@@ -52,7 +49,7 @@ const Explore = () => {
             id: String(x.id ?? i),
             name: String(x.name ?? 'Địa điểm'),
             description: x.description as string | undefined,
-            imageUrl: (x.imageUrl ?? x.image ?? x.thumbnailUrl) as string | undefined,
+            imageUrl: pickPoiImageUrl(x),
             city: x.city as string | undefined,
             address: x.address as string | undefined,
           }

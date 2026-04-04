@@ -385,6 +385,16 @@
   object-fit: cover;
 }
 
+.hl-poi__img--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  color: rgba(1, 135, 95, 0.45);
+  background: radial-gradient(circle at 30% 20%, rgba(251, 191, 36, 0.28), transparent 55%),
+    radial-gradient(circle at 70% 80%, rgba(1, 135, 95, 0.12), transparent 50%), var(--cream-dark);
+}
+
 .hl-poi__body {
   padding: 22px 22px 26px;
 }

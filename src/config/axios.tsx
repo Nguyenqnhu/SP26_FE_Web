@@ -40,6 +40,13 @@ axiosClient.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  /* FormData: bỏ Content-Type mặc định application/json để trình duyệt gắn boundary multipart */
+  if (config.data instanceof FormData) {
+    const h = config.headers
+    if (h && typeof (h as { delete?: (k: string) => void }).delete === 'function') {
+      ;(h as { delete: (k: string) => void }).delete('Content-Type')
+    }
+  }
   return config;
 });
 
