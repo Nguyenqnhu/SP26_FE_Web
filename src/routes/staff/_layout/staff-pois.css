@@ -1,0 +1,109 @@
+.staff-pois {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  font-family: system-ui, sans-serif;
+}
+
+.staff-pois__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.staff-pois__head h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.staff-pois__link {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+
+.staff-pois__form fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.staff-pois__form legend {
+  padding: 0 0.35rem;
+  font-weight: 600;
+}
+
+.staff-pois__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.staff-pois__form input:not([type='checkbox']),
+.staff-pois__form textarea {
+  padding: 0.45rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.staff-pois__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.staff-pois__check {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.5rem !important;
+}
+
+.staff-pois__pref-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.staff-pois__pref-row input {
+  flex: 1;
+}
+
+.staff-pois__pref-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.staff-pois__pref-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.8rem;
+}
+
+.staff-pois__submit {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.staff-pois__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

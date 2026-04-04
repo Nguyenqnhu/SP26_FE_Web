@@ -463,40 +463,103 @@
     font-size: 0.82rem;
     font-weight: 700;
     color: var(--tg-green-dark);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
-  
-  .tp-prefs {
+
+  .tp-prefs-hint {
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: #6b756f;
+  }
+
+  .tp-triptype {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
-  
-  .tp-pref {
-    border: 1.5px solid rgba(1, 112, 81, 0.25);
+
+  .tp-triptype__btn {
+    border: 1.5px solid rgba(1, 112, 81, 0.28);
     border-radius: 14px;
-    padding: 14px 8px;
+    padding: 12px 10px;
     background: #fff;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 700;
+    font-size: 0.88rem;
+    font-weight: 800;
     color: #4b5563;
     font-family: inherit;
     transition: border-color 0.2s, background 0.2s, color 0.2s;
   }
-  
-  .tp-pref:hover {
+
+  .tp-triptype__btn:hover {
     border-color: rgba(1, 135, 95, 0.45);
-    background: rgba(1, 135, 95, 0.04);
+    background: rgba(1, 135, 95, 0.05);
   }
-  
-  .tp-pref.is-selected {
+
+  .tp-triptype__btn.is-selected {
     border-color: var(--tg-green);
-    background: rgba(1, 135, 95, 0.1);
+    background: rgba(1, 135, 95, 0.12);
+    color: var(--tg-green-dark);
+  }
+
+  .tp-pref-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.95);
+    background: #fafaf8;
+    margin-bottom: 12px;
+  }
+
+  .tp-pref-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.88rem;
+    font-family: inherit;
+    background: transparent;
+    min-width: 0;
+  }
+
+  .tp-pref-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 2px;
+  }
+
+  .tp-prefs-loading {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #6b756f;
+  }
+
+  .tp-pref-chip {
+    border: 1.5px solid rgba(1, 112, 81, 0.28);
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #4b5563;
+    font-family: inherit;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+
+  .tp-pref-chip:hover {
+    border-color: rgba(1, 135, 95, 0.45);
+    background: rgba(1, 135, 95, 0.05);
+  }
+
+  .tp-pref-chip.is-selected {
+    border-color: var(--tg-green);
+    background: rgba(1, 135, 95, 0.12);
     color: var(--tg-green-dark);
   }
   

@@ -1,13 +1,12 @@
-import { type FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { loadTrips, saveTrips, type TripItem } from '../../lib/tripStorage'
 import {
   Calendar,
-  Home,
   Luggage,
   MapPin,
   Plus,
   Search,
-  Sun,
   Wallet,
   X,
 } from 'lucide-react'
@@ -16,33 +15,15 @@ import { AppFooter, AppNavbar } from '../../components/layout'
 import './explore-trips.css'
 import './trip-page.css'
 
-const STORAGE_KEY = 'travelgo-trips-v1'
-
 type TripStatus = 'upcoming' | 'ongoing' | 'completed'
 
-type ActivityPref = 'outdoor' | 'indoor' | 'both'
-
-type TripItem = {
-  id: string
-  city: string
-  startDate: string
-  endDate: string
-  budget: number
-  imageUrl?: string
-  activityPref?: ActivityPref | null
-}
+type FilterTab = 'all' | 'active' | 'completed'
 
 function toYMD(d: Date): string {
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
   const day = String(d.getDate()).padStart(2, '0')
   return `${y}-${m}-${day}`
-}
-
-function addDays(base: Date, days: number): Date {
-  const x = new Date(base)
-  x.setDate(x.getDate() + days)
-  return x
 }
 
 function parseYMD(s: string): Date {
@@ -63,73 +44,6 @@ function statusLabel(s: TripStatus): string {
   return 'Sắp tới'
 }
 
-function buildDefaultTrips(): TripItem[] {
-  const t = new Date()
-  return [
-    {
-      id: 'seed-1',
-      city: 'Hội An',
-      startDate: toYMD(addDays(t, -45)),
-      endDate: toYMD(addDays(t, -38)),
-      budget: 10_000_000,
-      imageUrl:
-        'https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80',
-      activityPref: 'outdoor',
-    },
-    {
-      id: 'seed-2',
-      city: 'Hà Nội',
-      startDate: toYMD(addDays(t, -3)),
-      endDate: toYMD(addDays(t, 4)),
-      budget: 12_000_000,
-      imageUrl:
-        'https://images.unsplash.com/photo-1599708153386-62bf3f09ba42?w=800&q=80',
-      activityPref: 'both',
-    },
-    {
-      id: 'seed-3',
-      city: 'Đà Nẵng',
-      startDate: toYMD(addDays(t, 14)),
-      endDate: toYMD(addDays(t, 21)),
-      budget: 8_500_000,
-      imageUrl:
-        'https://images.unsplash.com/photo-1559592413-7cec096d7fc8?w=800&q=80',
-      activityPref: 'indoor',
-    },
-    {
-      id: 'seed-4',
-      city: 'TP. Hồ Chí Minh',
-      startDate: toYMD(addDays(t, -120)),
-      endDate: toYMD(addDays(t, -113)),
-      budget: 9_200_000,
-      imageUrl:
-        'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80',
-      activityPref: 'outdoor',
-    },
-  ]
-}
-
-function loadTrips(): TripItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) {
-      const parsed = JSON.parse(raw) as unknown
-      if (Array.isArray(parsed) && parsed.length) {
-        return parsed as TripItem[]
-      }
-    }
-  } catch {
-    /* fallback */
-  }
-  const initial = buildDefaultTrips()
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(initial))
-  return initial
-}
-
-function saveTrips(list: TripItem[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list))
-}
-
 function formatVnd(n: number): string {
   return `${new Intl.NumberFormat('vi-VN').format(n)} đ`
 }
@@ -141,12 +55,11 @@ function formatRangeVi(start: string, end: string): string {
   return `${a.toLocaleDateString('vi-VN', opt)} - ${b.toLocaleDateString('vi-VN', opt)}`
 }
 
-type FilterTab = 'all' | 'active' | 'completed'
+type TripType = 'one_way' | 'round_trip'
 
 const Trips = () => {
   const navigate = useNavigate()
-  const [trips, setTrips] = useState<TripItem[]>(() => [])
-  const [hydrated, setHydrated] = useState(false)
+  const [trips, setTrips] = useState<TripItem[]>(() => loadTrips())
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<FilterTab>('all')
   const [modalOpen, setModalOpen] = useState(false)
@@ -154,16 +67,6 @@ const Trips = () => {
   useEffect(() => {
     if (!localStorage.getItem('accessToken')) navigate('/login', { replace: true })
   }, [navigate])
-
-  useEffect(() => {
-    setTrips(loadTrips())
-    setHydrated(true)
-  }, [])
-
-  const persist = useCallback((next: TripItem[]) => {
-    setTrips(next)
-    saveTrips(next)
-  }, [])
 
   const withStatus = useMemo(
     () =>
@@ -203,29 +106,43 @@ const Trips = () => {
     return () => window.removeEventListener('keydown', onKey)
   }, [modalOpen])
 
-  const onCreateTrip = (payload: {
-    city: string
+  const handleCreateTrip = async (payload: {
+    startPoint: string
+    endPoint: string
+    tripType: TripType
     startDate: string
     endDate: string
-    activityPref: ActivityPref | null
   }) => {
     const id =
       typeof crypto !== 'undefined' && 'randomUUID' in crypto
         ? crypto.randomUUID()
         : `trip-${Date.now()}`
-    const neu: TripItem = {
-      id,
-      city: payload.city.trim(),
-      startDate: payload.startDate,
-      endDate: payload.endDate,
-      budget: 0,
-      imageUrl:
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
-      activityPref: payload.activityPref,
+
+    try {
+      const neu: TripItem = {
+        id,
+        city: payload.endPoint.trim() || payload.startPoint.trim(),
+        startPoint: payload.startPoint.trim(),
+        endPoint: payload.endPoint.trim(),
+        tripType: payload.tripType,
+        viaStops: [],
+        startDate: payload.startDate,
+        endDate: payload.endDate,
+        budget: 0,
+        imageUrl:
+          'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80',
+      }
+      setTrips((prev) => {
+        const next = [neu, ...prev]
+        saveTrips(next)
+        return next
+      })
+      setModalOpen(false)
+      toast.success('Đã tạo trip. Hãy thêm segment cho lộ trình.')
+      navigate(`/trips/${id}/segments`)
+    } catch {
+      toast.error('Không tạo được trip. Thử lại sau.')
     }
-    persist([neu, ...trips])
-    setModalOpen(false)
-    toast.success('Đã tạo chuyến đi. Lịch AI sẽ được đồng bộ khi backend sẵn sàng.')
   }
 
   return (
@@ -286,17 +203,7 @@ const Trips = () => {
             </div>
           </div>
 
-          {!hydrated ? (
-            <div className="tp-cards">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={`sk-${i}`}
-                  className="tp-card"
-                  style={{ minHeight: 280, background: '#f3f1ea', border: 'none' }}
-                />
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="tp-empty">
               <p>Không có chuyến đi nào khớp bộ lọc. Thử đổi từ khóa hoặc tạo chuyến mới.</p>
             </div>
@@ -340,21 +247,27 @@ const Trips = () => {
                         <button
                           type="button"
                           className="tp-action"
-                          onClick={() => toast.message('Re-plan', { description: 'Tính năng đang được phát triển.' })}
+                          onClick={() =>
+                            toast.message('Re-plan', { description: 'Tính năng đang được phát triển.' })
+                          }
                         >
                           Re-plan
                         </button>
                         <button
                           type="button"
                           className="tp-action"
-                          onClick={() => toast.message('Chi tiết', { description: `${trip.city} · ${trip.startDate}` })}
+                          onClick={() => navigate(`/trips/${trip.id}`)}
                         >
                           Xem chi tiết
                         </button>
                         <button
                           type="button"
                           className="tp-action"
-                          onClick={() => toast.message('Đánh giá', { description: 'Bạn sẽ gửi đánh giá sau khi hoàn thành chuyến.' })}
+                          onClick={() =>
+                            toast.message('Đánh giá', {
+                              description: 'Bạn sẽ gửi đánh giá sau khi hoàn thành chuyến.',
+                            })
+                          }
                         >
                           Đánh giá
                         </button>
@@ -370,7 +283,10 @@ const Trips = () => {
       <AppFooter />
 
       {modalOpen ? (
-        <CreateTripModal onClose={() => setModalOpen(false)} onSubmit={onCreateTrip} />
+        <CreateTripModal
+          onClose={() => setModalOpen(false)}
+          onSubmit={handleCreateTrip}
+        />
       ) : null}
     </div>
   )
@@ -382,21 +298,28 @@ function CreateTripModal({
 }: {
   onClose: () => void
   onSubmit: (p: {
-    city: string
+    startPoint: string
+    endPoint: string
+    tripType: TripType
     startDate: string
     endDate: string
-    activityPref: ActivityPref | null
-  }) => void
+  }) => Promise<void>
 }) {
-  const [city, setCity] = useState('')
+  const [startPoint, setStartPoint] = useState('')
+  const [endPoint, setEndPoint] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [pref, setPref] = useState<ActivityPref | null>(null)
+  const [tripType, setTripType] = useState<TripType>('round_trip')
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (!city.trim()) {
-      toast.error('Vui lòng nhập thành phố.')
+    if (!startPoint.trim()) {
+      toast.error('Vui lòng nhập điểm bắt đầu.')
+      return
+    }
+    if (!endPoint.trim()) {
+      toast.error('Vui lòng nhập điểm kết thúc.')
       return
     }
     if (!startDate || !endDate) {
@@ -407,11 +330,18 @@ function CreateTripModal({
       toast.error('Ngày về phải sau hoặc trùng ngày đi.')
       return
     }
-    onSubmit({ city, startDate, endDate, activityPref: pref })
-    setCity('')
-    setStartDate('')
-    setEndDate('')
-    setPref(null)
+
+    try {
+      setSubmitting(true)
+      await onSubmit({ startPoint, endPoint, tripType, startDate, endDate })
+      setStartPoint('')
+      setEndPoint('')
+      setStartDate('')
+      setEndDate('')
+      setTripType('round_trip')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -434,14 +364,28 @@ function CreateTripModal({
         </div>
         <form className="tp-modal-form" onSubmit={handleSubmit}>
           <div className="tp-field">
-            <label htmlFor="tp-city">Thành phố</label>
+            <label htmlFor="tp-startPoint">Điểm bắt đầu</label>
             <div className="tp-input-wrap">
               <MapPin size={18} aria-hidden className="tp-icon-muted" />
               <input
-                id="tp-city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Ví dụ: Đà Lạt"
+                id="tp-startPoint"
+                value={startPoint}
+                onChange={(e) => setStartPoint(e.target.value)}
+                placeholder="Ví dụ: Hà Nội"
+                autoComplete="off"
+              />
+            </div>
+          </div>
+
+          <div className="tp-field">
+            <label htmlFor="tp-endPoint">Điểm kết thúc</label>
+            <div className="tp-input-wrap">
+              <MapPin size={18} aria-hidden className="tp-icon-muted" />
+              <input
+                id="tp-endPoint"
+                value={endPoint}
+                onChange={(e) => setEndPoint(e.target.value)}
+                placeholder="Ví dụ: TP. Hồ Chí Minh"
                 autoComplete="off"
               />
             </div>
@@ -477,37 +421,32 @@ function CreateTripModal({
           </div>
 
           <div>
-            <div className="tp-prefs-title">Sở thích hoạt động</div>
-            <div className="tp-prefs">
+            <div className="tp-prefs-title">Kiểu du lịch</div>
+            <p className="tp-prefs-hint">Chọn 1 chiều hoặc khứ hồi</p>
+            <div className="tp-triptype" role="radiogroup" aria-label="Kiểu du lịch">
               <button
                 type="button"
-                className={`tp-pref${pref === 'outdoor' ? ' is-selected' : ''}`}
-                onClick={() => setPref('outdoor')}
+                className={`tp-triptype__btn${tripType === 'one_way' ? ' is-selected' : ''}`}
+                onClick={() => setTripType('one_way')}
+                role="radio"
+                aria-checked={tripType === 'one_way'}
               >
-                <Sun size={22} aria-hidden />
-                Ngoài trời
+                1 chiều
               </button>
               <button
                 type="button"
-                className={`tp-pref${pref === 'indoor' ? ' is-selected' : ''}`}
-                onClick={() => setPref('indoor')}
+                className={`tp-triptype__btn${tripType === 'round_trip' ? ' is-selected' : ''}`}
+                onClick={() => setTripType('round_trip')}
+                role="radio"
+                aria-checked={tripType === 'round_trip'}
               >
-                <Home size={22} aria-hidden />
-                Trong nhà
-              </button>
-              <button
-                type="button"
-                className={`tp-pref${pref === 'both' ? ' is-selected' : ''}`}
-                onClick={() => setPref('both')}
-              >
-                <Luggage size={22} aria-hidden />
-                Cả hai
+                Khứ hồi
               </button>
             </div>
           </div>
 
-          <button type="submit" className="tp-submit">
-            Tạo chuyến đi với AI
+          <button type="submit" className="tp-submit" disabled={submitting}>
+            {submitting ? 'Đang tạo trip…' : 'Tạo trip'}
           </button>
         </form>
       </div>

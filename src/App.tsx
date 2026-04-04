@@ -9,6 +9,9 @@ import Preferences from './pages/Users/Preferences'
 import Home from './pages/Users/Home'
 import Explore from './pages/Users/Explore'
 import Trips from './pages/Users/Trips'
+import TripDetail from './pages/Users/TripDetail'
+import AddSegments from './pages/Users/AddSegments'
+import StaffPoisPage from './routes/staff/_layout/pois'
 
 function App() {
   return (
@@ -23,9 +26,12 @@ function App() {
         <Route path="/preferences" element={<Preferences />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/trips" element={<Trips />} />
+        <Route path="/trips/:tripId/segments" element={<AddSegments />} />
+        <Route path="/trips/:tripId" element={<TripDetail />} />
         <Route path="/home" element={<Home />} />
         {/* Trang chủ: navigate('/') từ Preferences phải khớp route này — không thì * đá về /login */}
         <Route path="/" element={<Home />} />
+        <Route path="/staff/pois" element={<StaffPoisPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
