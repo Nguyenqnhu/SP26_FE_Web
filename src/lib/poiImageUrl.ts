@@ -3,7 +3,7 @@ export function unwrapApiArray(data: unknown): unknown[] {
   if (Array.isArray(data)) return data
   if (!data || typeof data !== 'object') return []
   const o = data as Record<string, unknown>
-  for (const key of ['items', 'data', 'result', 'results', 'value', 'pois', 'PoIs']) {
+  for (const key of ['items', 'data', 'result', 'results', 'value', 'pois', 'PoIs', 'advertisements']) {
     const v = o[key]
     if (Array.isArray(v)) return v
   }

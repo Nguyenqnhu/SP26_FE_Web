@@ -8,8 +8,8 @@ import anh2 from '../../assets/anh2.png'
 import { AppFooter, AppNavbar } from '../../components/layout'
 import {
   HomeAboutFeature,
+  HomeAdsRail,
   HomeHero,
-  HomeHighlightBanner,
   HomePoiGrid,
   HomeWhySection,
 } from '../../components/home'
@@ -121,7 +121,7 @@ const Home = () => {
 
       <HomePoiGrid pois={poiList} loading={poiLoading} />
 
-      <HomeHighlightBanner img={anh1} onCta={() => scrollTo('why')} />
+      <HomeAdsRail />
 
       <HomeWhySection items={WHY_ITEMS} />
 
