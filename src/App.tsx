@@ -12,6 +12,7 @@ import Trips from './pages/Users/Trips'
 import TripDetail from './pages/Users/TripDetail'
 import AddSegments from './pages/Users/AddSegments'
 import StaffPoisPage from './routes/staff/_layout/pois'
+import Advertisement from './pages/Users/Advertisement'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/trips/:tripId/segments" element={<AddSegments />} />
         <Route path="/trips/:tripId" element={<TripDetail />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/advertisement" element={<Advertisement />} />
         {/* Trang chủ: navigate('/') từ Preferences phải khớp route này — không thì * đá về /login */}
         <Route path="/" element={<Home />} />
         <Route path="/staff/pois" element={<StaffPoisPage />} />

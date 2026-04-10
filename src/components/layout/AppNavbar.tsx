@@ -86,6 +86,9 @@ export function AppNavbar() {
           <NavLink to="/trips" className={navClass}>
             Chuyến đi
           </NavLink>
+           <NavLink to="/advertisement" className={navClass}>
+            Quảng cáo
+          </NavLink>
         </nav>
 
         <form className="app-nav__search" onSubmit={onSearchSubmit} role="search">
@@ -175,6 +178,9 @@ export function AppNavbar() {
           </NavLink>
           <NavLink to="/trips" className={navClass} onClick={() => setMobileOpen(false)}>
             Chuyến đi
+          </NavLink>
+          <NavLink to="/advertisement" className={navClass} onClick={() => setMobileOpen(false)}>
+            Quảng cáo
           </NavLink>
           {!auth.token && (
             <Link to="/login" className="app-nav__mobile-login" onClick={() => setMobileOpen(false)}>

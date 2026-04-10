@@ -318,6 +318,33 @@
   color: var(--tg-green-dark);
 }
 
+.et-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 48px;
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #6b6560;
+  border-radius: 16px;
+  border: 1px dashed rgba(209, 213, 219, 0.95);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.et-empty svg {
+  color: var(--tg-green);
+  opacity: 0.85;
+}
+
+.et-empty p {
+  margin: 0;
+  max-width: 360px;
+}
+
 /* —— Trang Chuyến đi (quản lý) —— */
 .trips-page .et-grid-section.trips-section {
   padding-top: 0;
