@@ -1,0 +1,271 @@
+/* Navbar chính cho TravelGo */
+
+.app-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(253, 252, 248, 0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(243, 232, 211, 0.9);
+}
+
+.app-nav__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--tg-green);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.app-nav__brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 20% 0, #facc15, #f97316 55%, #047857);
+}
+
+.app-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 24px;
+}
+
+.app-nav__link {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: background 0.16s ease, color 0.16s ease, transform 0.12s ease;
+}
+
+.app-nav__link:hover {
+  color: var(--tg-green);
+  background: rgba(1, 135, 95, 0.07);
+}
+
+.app-nav__link--active {
+  color: var(--tg-green);
+  background: rgba(1, 135, 95, 0.12);
+}
+
+.app-nav__search {
+  flex: 1;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.app-nav__search-icon {
+  position: absolute;
+  left: 10px;
+  color: #9ca3af;
+}
+
+.app-nav__search-input {
+  width: 100%;
+  padding: 7px 10px 7px 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 213, 219, 0.9);
+  background: #fff;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.app-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-nav__pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(1, 135, 95, 0.2);
+  background: #fff;
+  color: var(--tg-green);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 14px rgba(4, 163, 109, 0.2);
+  transition: background 0.16s ease, color 0.16s ease, transform 0.12s ease;
+}
+
+.app-nav__pill:hover {
+  background: var(--tg-btn-hover);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.app-nav__account-wrap {
+  position: relative;
+}
+
+.app-nav__account-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(1, 135, 95, 0.2);
+  background: #fff;
+  color: var(--tg-green);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.app-nav__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--tg-green);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.app-nav__account-label {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-nav__dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(1, 135, 95, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  padding: 10px 10px 8px;
+  min-width: 220px;
+}
+
+.app-nav__dropdown-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(1, 135, 95, 0.12);
+}
+
+.app-nav__dropdown-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tg-green);
+}
+
+.app-nav__dropdown-email {
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.app-nav__dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px;
+  border-radius: 10px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--tg-green);
+  cursor: pointer;
+  text-align: left;
+}
+
+.app-nav__dropdown-item:hover {
+  background: rgba(1, 135, 95, 0.08);
+}
+
+.app-nav__dropdown-item--danger {
+  color: #b91c1c;
+}
+
+.app-nav__burger {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: #111827;
+  cursor: pointer;
+}
+
+.app-nav__mobile {
+  display: none;
+}
+
+.app-nav__mobile-login {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--tg-btn);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.app-nav__mobile-login:hover {
+  background: var(--tg-btn-hover);
+}
+
+.app-nav__mobile-item {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  text-align: left;
+  font: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.app-nav__mobile-item--danger {
+  color: #b91c1c;
+}
+
+@media (max-width: 768px) {
+  .app-nav__inner {
+    padding-inline: 16px;
+  }
+
+  .app-nav__links,
+  .app-nav__search {
+    display: none;
+  }
+
+  .app-nav__burger {
+    display: inline-flex;
+  }
+
+  .app-nav__mobile {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 16px 14px;
+    gap: 6px;
+    border-top: 1px solid rgba(243, 232, 211, 0.9);
+    background: #fdfcf8;
+  }
+}

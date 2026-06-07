@@ -1,0 +1,931 @@
+.et-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fdfcf8;
+  font-family: var(--sans);
+  color: #1f2937;
+}
+
+.et-main {
+  flex: 1;
+}
+
+.et-hero {
+  padding: 48px 24px 40px;
+  max-width: 1120px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.et-hero--trips {
+  padding-top: 40px;
+}
+
+.et-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b45309;
+  background: rgba(251, 191, 36, 0.25);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  margin-bottom: 16px;
+}
+
+.et-badge--green {
+  color: var(--tg-green-dark);
+  background: rgba(1, 135, 95, 0.12);
+  border-color: rgba(1, 135, 95, 0.25);
+}
+
+.et-title {
+  margin: 0 0 12px;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 800;
+  color: var(--tg-green);
+  letter-spacing: -0.02em;
+}
+
+.et-lead {
+  margin: 0 auto;
+  max-width: 560px;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #5c5349;
+}
+
+.et-grid-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 24px 64px;
+}
+
+/* Thanh tìm kiếm & sắp xếp */
+.et-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.et-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: min(260px, 100%);
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(209, 213, 219, 0.9);
+  background: #fff;
+}
+
+.et-search input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: transparent;
+  color: #111827;
+}
+
+.et-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.et-sort select {
+  padding: 6px 26px 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(209, 213, 219, 0.9);
+  background: #fff;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: #111827;
+}
+
+.et-h2 {
+  margin: 0 0 24px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--tg-green);
+}
+
+.et-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .et-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.et-cards--two {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .et-cards--two {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.et-card {
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(232, 213, 181, 0.9);
+  box-shadow: 0 4px 20px rgba(45, 41, 38, 0.06);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.et-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(1, 135, 95, 0.12);
+}
+
+.et-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(1, 135, 95, 0.15), rgba(1, 135, 95, 0.05));
+  color: var(--tg-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.et-card-icon--red {
+  background: linear-gradient(135deg, rgba(218, 37, 29, 0.12), rgba(218, 37, 29, 0.04));
+  color: #da251d;
+}
+
+.et-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d2926;
+}
+
+/* Card layout (ảnh + nội dung) */
+.et-card-cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #f3f1ea;
+}
+
+.et-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.et-card-cover__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(1, 135, 95, 0.55);
+  background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.25), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(1, 135, 95, 0.14), transparent 50%),
+    #fbfaf7;
+}
+
+.et-fav {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #8a8278;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.et-fav:hover {
+  transform: scale(1.05);
+  color: #d64545;
+}
+
+.et-card-body {
+  padding: 14px 14px 16px;
+}
+
+.et-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 10px;
+  color: #9a9287;
+  font-size: 0.84rem;
+}
+
+.et-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #6b6560;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 44px;
+}
+
+/* Pagination */
+.et-pagination {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.et-pagination button {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 214, 214, 0.95);
+  background: #fff;
+  color: #7b756d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.et-pagination button.is-active {
+  background: #ff9f1c;
+  border-color: #ff9f1c;
+  color: #fff;
+}
+
+.et-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.et-bottom-row {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.et-note {
+  margin: 28px 0 0;
+  font-size: 0.88rem;
+  color: #8a8278;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.et-back {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: 700;
+  color: var(--tg-green);
+  text-decoration: none;
+}
+
+.et-back:hover {
+  text-decoration: underline;
+  color: var(--tg-green-dark);
+}
+
+.et-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 48px;
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #6b6560;
+  border-radius: 16px;
+  border: 1px dashed rgba(209, 213, 219, 0.95);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.et-empty svg {
+  color: var(--tg-green);
+  opacity: 0.85;
+}
+
+.et-empty p {
+  margin: 0;
+  max-width: 360px;
+}
+
+/* —— Trang Chuyến đi (quản lý) —— */
+.trips-page .et-grid-section.trips-section {
+  padding-top: 0;
+}
+
+.trips-hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.trips-hero__title {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 800;
+  color: var(--tg-green-dark);
+  letter-spacing: -0.02em;
+  font-family: var(--heading);
+}
+
+.trips-hero__sub {
+  margin: 0;
+  font-size: 0.98rem;
+  color: #6b6560;
+  line-height: 1.5;
+  max-width: 420px;
+}
+
+.trips-btn-create {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  background: var(--tg-btn);
+  box-shadow: 0 2px 12px rgba(1, 135, 95, 0.22);
+  transition: background 0.2s, transform 0.15s;
+}
+
+.trips-btn-create:hover {
+  background: var(--tg-btn-hover);
+  transform: translateY(-1px);
+}
+
+.trips-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 16px;
+  margin-bottom: 24px;
+}
+
+.trips-toolbar .trips-search {
+  flex: 1 1 260px;
+  max-width: min(520px, 100%);
+  margin-bottom: 0;
+}
+
+.trips-toolbar .trips-tabs {
+  flex: 0 1 auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .trips-toolbar .trips-tabs {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.trips-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 213, 219, 0.95);
+  background: #fff;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+
+.trips-search__icon {
+  flex-shrink: 0;
+  color: #9a9287;
+}
+
+.trips-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: transparent;
+  color: #111827;
+  min-width: 0;
+}
+
+.trips-search input::placeholder {
+  color: #a8a29e;
+}
+
+.trips-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 14px;
+  background: #eceae4;
+  border: 1px solid rgba(209, 213, 219, 0.85);
+  margin-bottom: 24px;
+}
+
+.trips-tab {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  color: #5c5349;
+  background: #e0ded6;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.trips-tab.is-active {
+  background: #fff;
+  color: var(--tg-green-dark);
+  box-shadow: 0 1px 4px rgba(45, 41, 38, 0.08);
+  border: 1.5px solid var(--tg-green);
+}
+
+.trips-tab:hover:not(.is-active) {
+  color: var(--tg-green);
+  background: #d8d6ce;
+}
+
+/* Lưới thẻ chuyến: nhiều cột khi đủ rộng (≈3 cột trên desktop) */
+.trips-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.trips-grid__item {
+  min-width: 0;
+  display: flex;
+}
+
+.trips-grid__item > .trips-card {
+  flex: 1;
+}
+
+.trips-card.et-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 20px rgba(45, 41, 38, 0.08);
+}
+
+.trips-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #f3f1ea;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+}
+
+.trips-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 18, 0.65) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.trips-card__img {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.trips-card__placeholder {
+  position: relative;
+  z-index: 0;
+  min-height: 100%;
+  border-radius: 0;
+}
+
+.trips-card__media-top {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+}
+
+.trips-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+.trips-tag--live {
+  background: var(--tg-green);
+  color: #fff;
+  border: none;
+  backdrop-filter: none;
+}
+
+.trips-tag--done {
+  background: #4b5563;
+  color: #fff;
+  border: none;
+}
+
+.trips-tag--soon {
+  background: rgba(251, 191, 36, 0.35);
+  color: #92400e;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+}
+
+.trips-card__loc {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.trips-card__body {
+  padding: 16px 16px 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.trips-card__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.trips-card__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.trips-card__meta-price {
+  margin-left: auto;
+  font-weight: 700;
+  color: #2d2926;
+}
+
+.trips-card__actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: auto;
+}
+
+.trips-card__action {
+  padding: 10px 8px;
+  border: 1px solid rgba(1, 135, 95, 0.42);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--tg-green-dark);
+  background: transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.trips-card__action:hover {
+  background: rgba(1, 135, 95, 0.06);
+  border-color: var(--tg-green);
+}
+
+.trips-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #8a8278;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+/* Modal tạo chuyến */
+.trips-modal-root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.trips-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: rgba(15, 23, 18, 0.45);
+  cursor: pointer;
+}
+
+.trips-modal {
+  position: relative;
+  width: min(480px, 100%);
+  max-height: min(90vh, 720px);
+  overflow: auto;
+  background: #fdfcf8;
+  border-radius: 18px;
+  box-shadow:
+    0 24px 48px rgba(15, 23, 18, 0.18),
+    0 0 0 1px rgba(1, 135, 95, 0.1);
+  padding: 22px 22px 24px;
+  z-index: 1;
+}
+
+.trips-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.trips-modal__title {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--tg-green-dark);
+  font-family: var(--heading);
+  letter-spacing: -0.02em;
+}
+
+.trips-modal__sub {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.trips-modal__close {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(1, 135, 95, 0.08);
+  color: var(--tg-green-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.trips-modal__close:hover {
+  background: rgba(1, 135, 95, 0.16);
+}
+
+.trips-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.trips-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trips-field__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--tg-green-dark);
+}
+
+.trips-field__label--plain {
+  color: #374151;
+}
+
+.trips-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 520px) {
+  .trips-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trips-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.95);
+  font-size: 0.92rem;
+  font-family: inherit;
+  background: #fff;
+  color: #111827;
+}
+
+.trips-input--accent {
+  border-color: rgba(1, 135, 95, 0.45);
+}
+
+.trips-input:focus {
+  outline: none;
+  border-color: var(--tg-focus);
+  box-shadow: 0 0 0 3px rgba(17, 163, 106, 0.2);
+}
+
+.trips-pref-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 420px) {
+  .trips-pref-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trips-pref-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 88px;
+  padding: 12px 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(209, 213, 219, 0.95);
+  background: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #4b5563;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.trips-pref-card:hover {
+  border-color: rgba(1, 135, 95, 0.35);
+  color: var(--tg-green-dark);
+}
+
+.trips-pref-card.is-selected {
+  border-color: var(--tg-green);
+  background: rgba(1, 135, 95, 0.1);
+  color: var(--tg-green-dark);
+}
+
+.trips-modal-submit {
+  margin-top: 4px;
+  width: 100%;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  background: var(--tg-btn);
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.trips-modal-submit:hover:not(:disabled) {
+  background: var(--tg-btn-hover);
+}
+
+.trips-modal-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (prefers-color-scheme: dark) {
+  .trips-modal {
+    background: #1f2028;
+  }
+
+  .trips-modal__sub {
+    color: #9ca3af;
+  }
+
+  .trips-field__label--plain {
+    color: #d1d5db;
+  }
+
+  .trips-input {
+    background: #16171d;
+    border-color: var(--border);
+    color: #f3f4f6;
+  }
+
+  .trips-tab.is-active {
+    background: #2e303a;
+    color: #a7f3d0;
+    border-color: var(--tg-green);
+  }
+
+  .trips-search {
+    background: #16171d;
+    border-color: var(--border);
+  }
+
+  .trips-search input {
+    color: #f3f4f6;
+  }
+
+  .trips-tag--done {
+    background: rgba(55, 65, 81, 0.85);
+    color: #e5e7eb;
+    border-color: #4b5563;
+  }
+
+  .trips-pref-card {
+    background: #16171d;
+    border-color: var(--border);
+    color: #d1d5db;
+  }
+}
